@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>实验</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/css/fileinput.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/js/fileinput.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/js/locales/zh.js"></script>
+  </head>
+
+  <body>
+
+    <br>
+    <br>
+
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+
+        <h1 class="text-center">实验课程</h1>
+        <br>
+        <table class="table table-hove">
+          <thead>
+            <tr>
+              <td>#</td>
+              <td class="text-left">实验名称</td>
+              <td class="text-right">实验指导</td>
+              <td class="text-right">提交入口</td>
+            </tr>
+          </thead>
+          <tbody>
+            {# <tr>
+              <td>1</td>
+              <td class="text-right">梯度下降实验</td>
+              <td class="text-right">
+                <a href="#">点击这里</a>
+              </td>
+              <td class="text-right">
+                <a href="/homeworks/1">点击这里</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td class="text-right">梯度下降实验</td>
+              <td class="text-right">
+                <a href="#">点击这里</a>
+              </td>
+              <td class="text-right">
+                <a href="/homeworks/1">点击这里</a>
+              </td>
+            </tr> #}
+            {% for index, experiment in experiments %}
+              <tr>
+                <td>{{ index }}</td>
+                <td class="text-left">{{ experiment.subtitle }}</td>
+                {% if experiment.tutorial %}
+                <td class="text-right">
+                  <a href="{{ experiment.tutorial }}">点击这里</a>
+                </td>
+                <td class="text-right">
+                  <a href="/homeworks/{{ index }}">点击这里</a>
+                </td>
+                {% else %}
+                <td class="text-right">
+                  <span class="text-muted">点击这里</span>
+                </td>
+                <td class="text-right">
+                  <span class="text-muted">点击这里</span>
+                </td>
+                {% endif %}
+              </tr>
+            {% endfor %}
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="/public/js/console.js"></script>
+  <script type="text/javascript">
+    $("#homework").fileinput({language: "zh"});
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: experiment-submission-system
+  labels:
+    app: experiment-submission-system
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: experiment-submission-system
+  template:
+    metadata:
+      labels:
+        app: experiment-submission-system
+    spec:
+      volumes:
+        - name: data
+          cephfs:
+            monitors:
+                - 222.201.187.169:6789
+                - 222.201.187.170:6789
+                - 222.201.187.230:6789
+                - 222.201.187.231:6789
+                - 222.201.187.232:6789
+            user: smil
+            path: /smil/ML2020
+            secretRef:
+                name: ceph-smil-secret
+            readOnly: false
+      containers:
+        - name: experiment-submission-system
+          image: cr.scut-smil.cn/experiment-submission-system:2020.3
+          volumeMounts:
+            - mountPath: /experiment-submission-system/data
+              name: data
+          ports:
+            - name: http
+              containerPort: 7001
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: experiment-submission-system
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: http
+  selector:
+    app: experiment-submission-system
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: experiment-submission-system
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/proxy-body-size: "2g"
+spec:
+  rules:
+  - host: ml-lab.scut-smil.cn
+    http:
+      paths:
+      - backend:
+          serviceName: experiment-submission-system
+          servicePort: http
+  tls:
+  - hosts:
+    - "scut-smil.cn"
+    - "*.scut-smil.cn"
+    secretName: scut-smil-cert

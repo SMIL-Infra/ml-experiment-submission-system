@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>实验</title>
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/css/fileinput.min.css" rel="stylesheet">
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/js/fileinput.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/js/locales/zh.js"></script>
+</head>
+
+<body>
+
+  <p>
+    <h1 class="text-center">{{ title }}</h1>
+    <h2 class="text-center">{{ subtitle }}</h2>
+  </p>
+
+  <br>
+  <br>
+
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+
+      <form method="POST" action="/homeworks?_csrf={{ ctx.csrf | safe }}&id={{ id }}" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="student_name">姓名</label>(使用同一姓名重复提交会自动更新记录)
+          <input name="student_name" required type="text" class="form-control" id="student_name" placeholder="姓名">
+        </div>
+
+        <div class="form-group">
+          <label for="student_number">学号</label>(使用同一学号重复提交会自动更新记录)
+          <input name="student_number" required type="text" class="form-control" id="student_number" placeholder="学号">
+        </div>
+
+        <div class="form-group">
+          <label for="report">报告</label>
+          <div class="file-loading">
+            <input id="report" name="report" required type="file" class="file" data-show-upload="false" data-show-preview="false"
+              data-allowed-file-extensions='["pdf"]'>
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <label for="homework">请提交小于1M的zip文件</label>
+          <div class="file-loading">
+            <input id="homework" name="homework" required type="file" class="file" data-show-upload="false" data-show-preview="false"
+              data-allowed-file-extensions='["zip"]'>
+          </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="margin: 0px auto;display: table;">提交</button>
+      </form>
+
+      <br>
+      <br>
+      <br>
+
+
+
+    </div>
+
+
+    <div class="col-md-6">
+      <h3 class="text-center">报告提交记录</h3>
+      <p class="text-center">已提交人数: {{ reports.length }}</p>
+      <br>
+      <table class="table table-hove">
+        <thead>
+          <tr>
+            <td>文件名</td>
+            <td class="text-right">最后提交时间</td>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for report in reports %}
+          <tr>
+            <td>{{ report.filename }}</td>
+            <td class="text-right">{{ report.updatedAt }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+    </div>
+    <div class="col-md-6">
+      <h3 class="text-center">代码提交记录</h3>
+      <p class="text-center">已提交人数: {{ codeFiles.length }}</p>
+      <br>
+      <table class="table table-hove">
+        <thead>
+          <tr>
+            <td>文件名</td>
+            <td class="text-right">最后提交时间</td>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for codeFile in codeFiles %}
+          <tr>
+            <td>{{ codeFile.filename }}</td>
+            <td class="text-right">{{ codeFile.updatedAt }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+
+
+  <script src="/public/js/console.js"></script>
+  <script type="text/javascript">
+    $("#homework").fileinput({ language: "zh" });
+    $("#report").fileinput({ language: "zh" });
+  </script>
+
+</body>
+
+</html>
