@@ -8,6 +8,14 @@
 
 see [egg docs][egg] for more detail.
 
+
+### 部署 docker & k8s
+```
+docker build . -t cr.scut-smil.cn/experiment-submission-system:20XX.X
+docker push cr.scut-smil.cn/experiment-submission-system:20XX.X
+kubectl apply -f experiment-submission-system.yml
+```
+
 ### Development
 
 ```bash
@@ -16,14 +24,14 @@ $ npm run dev
 $ open http://localhost:7001/
 ```
 
-### Deploy
+#### Deploy
 
 ```bash
 $ npm start
 $ npm stop
 ```
 
-### npm scripts
+#### npm scripts
 
 - Use `npm run lint` to check code style.
 - Use `npm test` to run unit test.
