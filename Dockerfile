@@ -1,4 +1,4 @@
-FROM node:12.12.0
+FROM node:lts
 
 ADD package.json package-lock.json /experiment-submission-system/
 WORKDIR /experiment-submission-system
@@ -8,4 +8,4 @@ ADD . /experiment-submission-system
 VOLUME [ "/experiment-submission-system/data" ]
 EXPOSE 7001
 
-CMD [ "npm", "run", "dev" ]
+CMD [ "npm", "start" ]

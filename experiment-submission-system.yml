@@ -30,7 +30,7 @@ spec:
             readOnly: false
       containers:
         - name: experiment-submission-system
-          image: cr.scut-smil.cn/experiment-submission-system:2020.4
+          image: cr.scut-smil.cn/experiment-submission-system:2020.5
           volumeMounts:
             - mountPath: /experiment-submission-system/data
               name: data
