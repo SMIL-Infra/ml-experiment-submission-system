@@ -18,19 +18,19 @@ spec:
         - name: data
           cephfs:
             monitors:
-                - 222.201.187.169:6789
-                - 222.201.187.170:6789
-                - 222.201.187.230:6789
-                - 222.201.187.231:6789
-                - 222.201.187.232:6789
+              - 202.38.247.175:6789
+              - 202.38.247.176:6789
+              - 202.38.247.181:6789
+              - 202.38.247.186:6789
+              - 202.38.247.187:6789
             user: smil
-            path: /smil/ML2020
+            path: /smil/ML2021
             secretRef:
-                name: ceph-smil-secret
+              name: ceph-smil-secret
             readOnly: false
       containers:
         - name: experiment-submission-system
-          image: cr.scut-smil.cn/experiment-submission-system:2020.5
+          image: cr.scut-smil.cn/experiment-submission-system:2021.9
           volumeMounts:
             - mountPath: /experiment-submission-system/data
               name: data
@@ -52,7 +52,7 @@ spec:
   selector:
     app: experiment-submission-system
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: experiment-submission-system
@@ -65,9 +65,13 @@ spec:
   - host: ml-lab.scut-smil.cn
     http:
       paths:
-      - backend:
-          serviceName: experiment-submission-system
-          servicePort: http
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: experiment-submission-system
+            port:
+              name: http
   tls:
   - hosts:
     - "scut-smil.cn"
