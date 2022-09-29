@@ -24,7 +24,7 @@ spec:
               - 202.38.247.186:6789
               - 202.38.247.187:6789
             user: smil
-            path: /smil/ML2021
+            path: /smil/ML2022
             secretRef:
               name: ceph-smil-secret
             readOnly: false
