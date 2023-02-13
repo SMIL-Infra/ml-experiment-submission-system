@@ -59,6 +59,12 @@ const homeworks = {
     storagePath: `${rootPath}/experiment8`,
     tutorial: 'https://www.zybuluo.com/mymy/note/1747200',
   },
+  9: {
+    title: '课程报告',
+    subtitle: '2022-2023学年机器学习课程报告',
+    storagePath: `${rootPath}/finalReport`,
+    tutorial: 'https://www.zybuluo.com/mymy/note/1747200',
+  },
 };
 
 class HomeworkController extends Controller {
@@ -171,7 +177,7 @@ class HomeworkController extends Controller {
     // if (codeFile.size > 1024 * 1024) {
     //   this.ctx.body = 'File too large';
     //   return;
-    // }  
+    // }
 
     const reportPath = path.join(homework.storagePath, 'reports');
     const codePath = path.join(homework.storagePath, 'codes');
