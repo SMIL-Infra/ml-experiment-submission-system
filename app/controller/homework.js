@@ -63,7 +63,7 @@ const homeworks = {
     title: '课程报告',
     subtitle: '2022-2023学年机器学习课程报告',
     storagePath: `${rootPath}/finalReport`,
-    tutorial: 'https://www.zybuluo.com/mymy/note/1747200',
+    tutorial: '#',
   },
 };
 
